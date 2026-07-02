@@ -100,6 +100,23 @@ a:hover {
     color: var(--accent-indigo);
 }
 
+/* Theme color overrides for Bootstrap utility classes & Timeline elements */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+.text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+.timeline-subtitle {
+    color: var(--text-secondary) !important;
+}
+
+.timeline-duties {
+    color: var(--text-muted) !important;
+}
+
 .font-grotesk {
     font-family: var(--font-heading);
 }

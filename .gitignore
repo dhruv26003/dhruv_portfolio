@@ -1,0 +1,66 @@
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+bin/
+lib/
+include/
+share/
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django specific files
+staticfiles/
+media/
+*.log
+db_debug.txt
+sanitize_log.txt
+
+# Local settings and environment variables (contains secrets)
+.env
+.env.local
+.env.*
+
+# SQLite database (Comment out/remove if you explicitly want to push your local database to GitHub)
+db.sqlite3
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# OS specific files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -149,4 +150,113 @@ if not DEBUG:
     X_FRAME_OPTIONS = "DENY"
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+
+
+from django.urls import reverse_lazy
+
+# Unfold Custom Admin Theme Configuration
+UNFOLD = {
+    "SITE_TITLE": "Dhruv Chavda Admin",
+    "SITE_HEADER": "Dhruv Chavda",
+    "SITE_SYMBOL": "code",
+    "SHOW_HISTORY": True,
+    "SHOW_SIDEBAR": True,
+    "STYLES": [
+        lambda request: "/static/css/admin_custom.css",
+    ],
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": "Overview & Messages",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Overview",
+                        "icon": "grid_view",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": "Contact Messages",
+                        "icon": "mail",
+                        "link": reverse_lazy("admin:main_contactmessage_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Portfolio Management",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Profiles",
+                        "icon": "person",
+                        "link": reverse_lazy("admin:main_profile_changelist"),
+                    },
+                    {
+                        "title": "Projects",
+                        "icon": "folder_shared",
+                        "link": reverse_lazy("admin:main_project_changelist"),
+                    },
+                    {
+                        "title": "Skills",
+                        "icon": "construction",
+                        "link": reverse_lazy("admin:main_skill_changelist"),
+                    },
+                    {
+                        "title": "Categories",
+                        "icon": "sell",
+                        "link": reverse_lazy("admin:main_category_changelist"),
+                    },
+                    {
+                        "title": "Experiences",
+                        "icon": "work",
+                        "link": reverse_lazy("admin:main_experience_changelist"),
+                    },
+                    {
+                        "title": "Educations",
+                        "icon": "school",
+                        "link": reverse_lazy("admin:main_education_changelist"),
+                    },
+                    {
+                        "title": "Certificates",
+                        "icon": "verified",
+                        "link": reverse_lazy("admin:main_certificate_changelist"),
+                    },
+                    {
+                        "title": "Services",
+                        "icon": "design_services",
+                        "link": reverse_lazy("admin:main_service_changelist"),
+                    },
+                    {
+                        "title": "Resumes",
+                        "icon": "description",
+                        "link": reverse_lazy("admin:main_resume_changelist"),
+                    },
+                    {
+                        "title": "Social Links",
+                        "icon": "link",
+                        "link": reverse_lazy("admin:main_sociallink_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": "Access Control",
+                "separator": True,
+                "items": [
+                    {
+                        "title": "Users",
+                        "icon": "people",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                    {
+                        "title": "Groups",
+                        "icon": "groups",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
+}
 
