@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Optimization -->
+    <title>{% if profile.meta_title %}{{ profile.meta_title }}{% else %}{{ profile.name }} | Portfolio - Senior Software Engineer{% endif %}</title>
+    <meta name="description" content="{% if profile.meta_description %}{{ profile.meta_description }}{% else %}Personal portfolio of {{ profile.name }}, featuring automation scripts, backend systems, certificates, services, and Django developer projects.{% endif %}">
+    <meta name="keywords" content="{% if profile.meta_keywords %}{{ profile.meta_keywords }}{% else %}Python Developer, Django Developer, Backend Developer, Automation Engineer, Software Architect{% endif %}">
+    <meta name="author" content="{{ profile.name }}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% if profile.meta_title %}{{ profile.meta_title }}{% else %}{{ profile.name }} | Portfolio{% endif %}">
+    <meta property="og:description" content="{% if profile.meta_description %}{{ profile.meta_description }}{% else %}Check out my development work, services, and engineering history.{% endif %}">
+    {% if profile.profile_photo %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ profile.profile_photo.url }}">
+    {% endif %}
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{% if profile.meta_title %}{{ profile.meta_title }}{% else %}{{ profile.name }} | Portfolio{% endif %}">
+    <meta property="twitter:description" content="{% if profile.meta_description %}{{ profile.meta_description }}{% else %}Check out my development work, services, and engineering history.{% endif %}">
+    {% if profile.profile_photo %}
+    <meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ profile.profile_photo.url }}">
+    {% endif %}
+
+    <!-- Favicon (Fallback to a nice developer icon) -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/neon-lines/40/code.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Libraries -->
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Scroll Animations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Futuristic Custom Loader -->
+    <div id="loader" class="custom-loader-wrapper">
+        <div class="loader-inner">
+            <div class="loader-circle"></div>
+            <div class="loader-logo">
+                <i class="fa-solid fa-code glow-text-cyan"></i>
+            </div>
+            <span class="loader-text">INITIALIZING SYSTEM...</span>
+        </div>
+    </div>
+
+    <!-- Background Particle Canvas -->
+    <div class="particle-background">
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand logo-brand" href="{% url 'home' %}#hero">
+                <span class="logo-symbol">&lt;</span>{{ profile.name|default:"Developer" }}<span class="logo-symbol"> /&gt;</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon-custom"><i class="fa-solid fa-bars"></i></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto alignment-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#hero">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <!-- Controls: Resume Download and Dark/Light Mode -->
+                <div class="nav-controls d-flex align-items-center ms-lg-4">
+                    {% if active_resume %}
+                    <a href="{{ active_resume.file.url }}" class="btn btn-outline-cyan btn-sm me-3 download-resume-btn" download>
+                        <i class="fa-solid fa-download me-1"></i> CV
+                    </a>
+                    {% endif %}
+                    <button id="themeToggle" class="theme-toggle-btn" aria-label="Switch Theme">
+                        <i class="fa-solid fa-moon text-yellow toggle-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll Progress Bar -->
+        <div id="scrollProgress" class="scroll-progress-indicator"></div>
+    </nav>
+
+    <!-- Main Dynamic Content Block -->
+    <main class="content-wrapper">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="custom-footer py-5 mt-auto">
+        <div class="container">
+            <div class="row align-items-center gy-4">
+                <div class="col-md-4 text-center text-md-start">
+                    <h5 class="footer-title">&lt;{{ profile.name|default:"Developer" }} /&gt;</h5>
+                    <p class="footer-subtitle text-muted mt-2">{{ profile.title|default:"Senior Full Stack Developer" }}</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <!-- Social icons -->
+                    <div class="social-links-footer d-flex justify-content-center gap-3">
+                        {% for link in social_links %}
+                        <a href="{{ link.url }}" class="social-icon-btn glow-hover" target="_blank" title="{{ link.platform_name }}">
+                            <i class="{{ link.icon_class }}"></i>
+                        </a>
+                        {% empty %}
+                        <a href="https://github.com" class="social-icon-btn glow-hover" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://linkedin.com" class="social-icon-btn glow-hover" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://instagram.com" class="social-icon-btn glow-hover" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        {% endfor %}
+                    </div>
+                    <p class="copyright-text text-muted mt-3 mb-0">&copy; 2026 {{ profile.name }}. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <!-- Visitor Hit Counter -->
+                    <div class="visitor-counter-box py-2 px-3 d-inline-block rounded-pill">
+                        <span class="visitor-label"><i class="fa-solid fa-chart-line text-cyan me-1"></i> Visitors:</span>
+                        <span class="visitor-number text-cyan font-monospace">{{ profile.visitor_count|default:"1" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top-btn" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- JS Libraries -->
+    <!-- Bootstrap 5 Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Scroll Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <!-- Typed.js (Typing animation) -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Custom Main Script -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

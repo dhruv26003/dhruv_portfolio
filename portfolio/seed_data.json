@@ -1,0 +1,350 @@
+[
+  {
+    "model": "main.category",
+    "pk": 1,
+    "fields": {
+      "name": "Programming",
+      "slug": "programming"
+    }
+  },
+  {
+    "model": "main.category",
+    "pk": 2,
+    "fields": {
+      "name": "Backend Development",
+      "slug": "backend"
+    }
+  },
+  {
+    "model": "main.category",
+    "pk": 3,
+    "fields": {
+      "name": "Automation & Scraping",
+      "slug": "automation"
+    }
+  },
+  {
+    "model": "main.category",
+    "pk": 4,
+    "fields": {
+      "name": "Database Engines",
+      "slug": "databases"
+    }
+  },
+  {
+    "model": "main.category",
+    "pk": 5,
+    "fields": {
+      "name": "AI & LLM Tools",
+      "slug": "ai"
+    }
+  },
+  {
+    "model": "main.category",
+    "pk": 6,
+    "fields": {
+      "name": "Tools & DevOps",
+      "slug": "tools"
+    }
+  },
+  {
+    "model": "main.profile",
+    "pk": 1,
+    "fields": {
+      "name": "Dhruv Chavda",
+      "title": "Python Automation Engineer & Django Developer",
+      "bio": "I build premium automated scrapers, robust backend systems, and AI modules to optimize business workflows and scale services.",
+      "summary": "Senior Software Architect and Automation Developer with 3+ years of experience. Specialized in setting up selenium/playwright browser bot farms, REST APIs using Django, and automated outreach engines. Passionate about writing high-performance scrapers and deploying scalable databases.",
+      "profile_photo": "",
+      "about_photo": "",
+      "email": "dhruv@example.com",
+      "phone": "+91 99988 87766",
+      "location": "Gujarat, India",
+      "github_username": "dhruvchavda",
+      "visitor_count": 157,
+      "quick_facts": "Experience: 3+ Years\nProjects Completed: 20+\nAutomated Workflows: 150+\nAPI Integrations: 50+",
+      "meta_title": "Dhruv Chavda | Python Automation Engineer & Django Developer",
+      "meta_description": "Professional portfolio of Dhruv Chavda. Explore automated solutions, backend web applications, certificates, and REST APIs built in Python & Django.",
+      "meta_keywords": "Dhruv Chavda, Python Developer, Django Developer, Automation Engineer, Selenium Scraper, AI Automation"
+    }
+  },
+  {
+    "model": "main.sociallink",
+    "pk": 1,
+    "fields": {
+      "platform_name": "GitHub",
+      "url": "https://github.com",
+      "icon_class": "fa-brands fa-github"
+    }
+  },
+  {
+    "model": "main.sociallink",
+    "pk": 2,
+    "fields": {
+      "platform_name": "LinkedIn",
+      "url": "https://linkedin.com",
+      "icon_class": "fa-brands fa-linkedin-in"
+    }
+  },
+  {
+    "model": "main.sociallink",
+    "pk": 3,
+    "fields": {
+      "platform_name": "Email",
+      "url": "mailto:dhruv@example.com",
+      "icon_class": "fa-regular fa-envelope"
+    }
+  },
+  {
+    "model": "main.resume",
+    "pk": 1,
+    "fields": {
+      "title": "Dhruv Chavda - Main Technical Resume",
+      "file": "resumes/sample_resume.pdf",
+      "is_active": true,
+      "uploaded_at": "2026-07-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 1,
+    "fields": {
+      "name": "Python",
+      "category": 1,
+      "proficiency": 95,
+      "icon_class": "fa-brands fa-python"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 2,
+    "fields": {
+      "name": "JavaScript",
+      "category": 1,
+      "proficiency": 80,
+      "icon_class": "fa-brands fa-js"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 3,
+    "fields": {
+      "name": "SQL",
+      "category": 1,
+      "proficiency": 85,
+      "icon_class": "fa-solid fa-database"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 4,
+    "fields": {
+      "name": "Django",
+      "category": 2,
+      "proficiency": 90,
+      "icon_class": "fa-solid fa-code"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 5,
+    "fields": {
+      "name": "REST API",
+      "category": 2,
+      "proficiency": 88,
+      "icon_class": "fa-solid fa-link"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 6,
+    "fields": {
+      "name": "Selenium",
+      "category": 3,
+      "proficiency": 92,
+      "icon_class": "fa-solid fa-robot"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 7,
+    "fields": {
+      "name": "Playwright",
+      "category": 3,
+      "proficiency": 85,
+      "icon_class": "fa-solid fa-network-wired"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 8,
+    "fields": {
+      "name": "BeautifulSoup",
+      "category": 3,
+      "proficiency": 90,
+      "icon_class": "fa-solid fa-magnifying-glass"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 9,
+    "fields": {
+      "name": "MySQL",
+      "category": 4,
+      "proficiency": 85,
+      "icon_class": "fa-solid fa-server"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 10,
+    "fields": {
+      "name": "Gemini API",
+      "category": 5,
+      "proficiency": 85,
+      "icon_class": "fa-solid fa-brain"
+    }
+  },
+  {
+    "model": "main.skill",
+    "pk": 11,
+    "fields": {
+      "name": "Git & GitHub",
+      "category": 6,
+      "proficiency": 90,
+      "icon_class": "fa-brands fa-github"
+    }
+  },
+  {
+    "model": "main.experience",
+    "pk": 1,
+    "fields": {
+      "company": "Queryfinders",
+      "position": "Python Automation Developer",
+      "start_date": "2024-01-01",
+      "end_date": null,
+      "is_current": true,
+      "description": "Automation: Built highly stable browser bots using Selenium & Playwright to automate LinkedIn client accounts outreach pipelines.\nREST APIs: Designed and implemented robust secure API routes for microservice communications.\nDjango & MySQL: Standardized database indexing for heavy scraper systems, improving query speeds by 30%.\nLead Automation: Integrated lead filtering algorithms that automated lead verification workflows, optimizing data operations.",
+      "skills_used": [1, 4, 5, 6, 9]
+    }
+  },
+  {
+    "model": "main.education",
+    "pk": 1,
+    "fields": {
+      "institution": "Gujarat Technological University",
+      "degree": "Bachelor of Engineering",
+      "field_of_study": "Computer Science & Engineering",
+      "start_date": "2020-07-01",
+      "end_date": "2024-06-30",
+      "is_current": false,
+      "description": "Graduated with Honors. Focused on Database Management, Web Technologies, and Algorithm Design."
+    }
+  },
+  {
+    "model": "main.project",
+    "pk": 1,
+    "fields": {
+      "title": "LinkedIn Automation Pipeline",
+      "slug": "linkedin-automation",
+      "category": 3,
+      "image": "",
+      "description": "Complete automation engine for LinkedIn networking, automated messaging, status checking, and pipeline metrics dashboards.",
+      "detail_description": "<h3>LinkedIn Automation Pipeline</h3><p>An enterprise-grade automation scraper built to automate outreach, networking, and message dispatch on LinkedIn.</p><h4>Key Features</h4><ul><li>Session handling and cookie preservation to minimize account restriction risks.</li><li>Rate-limiting queues matching human behavior patterns.</li><li>Web dashboard detailing outreach statistics, active campaigns, and conversation outcomes.</li></ul>",
+      "tech_stack": "Python, Selenium, SQLite, Bootstrap 5",
+      "github_url": "https://github.com",
+      "live_url": "https://github.com",
+      "featured": true,
+      "order": 1,
+      "created_at": "2026-07-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "main.project",
+    "pk": 2,
+    "fields": {
+      "title": "AI Conversational Assistant",
+      "slug": "ai-chatbot",
+      "category": 5,
+      "image": "",
+      "description": "Conversational context chatbot integrating OpenAI & Gemini API with LangChain memory structures for automated replies.",
+      "detail_description": "<h3>AI Conversational Assistant</h3><p>A smart workspace bot that connects Gemini API to handle database queries and document analysis.</p><h4>Key Features</h4><ul><li>Retrieval Augmented Generation (RAG) using local vector databases.</li><li>Decoupled backend endpoints built in Django.</li><li>Real-time chat window utilizing AJAX.</li></ul>",
+      "tech_stack": "Django, LangChain, Gemini API, JavaScript",
+      "github_url": "https://github.com",
+      "live_url": "https://github.com",
+      "featured": true,
+      "order": 2,
+      "created_at": "2026-07-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "main.project",
+    "pk": 3,
+    "fields": {
+      "title": "Print Media Management CRM",
+      "slug": "print-media-management",
+      "category": 2,
+      "image": "",
+      "description": "Administrative suite for print publishers to monitor customer accounts, order updates, invoices, and production pipelines.",
+      "detail_description": "<h3>Print Media Management CRM</h3><p>An ERP tool built to govern publisher operations, from invoice generation to shipment updates.</p><h4>Key Features</h4><ul><li>Custom Django Admin interfaces with specialized dashboard reports.</li><li>Secure CSRF / XSS protected forms with AJAX validations.</li><li>Dynamic graphs illustrating sales metrics.</li></ul>",
+      "tech_stack": "Django, MySQL, Bootstrap 5, AJAX",
+      "github_url": "https://github.com",
+      "live_url": "",
+      "featured": false,
+      "order": 3,
+      "created_at": "2026-07-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "main.certificate",
+    "pk": 1,
+    "fields": {
+      "title": "Django Backend Engineering Specialist",
+      "issuer": "Coursera / Meta",
+      "date_issued": "2024-05-15",
+      "image": "",
+      "verification_url": "https://coursera.org"
+    }
+  },
+  {
+    "model": "main.certificate",
+    "pk": 2,
+    "fields": {
+      "title": "Advanced Python & Automated Systems",
+      "issuer": "Udemy",
+      "date_issued": "2023-11-20",
+      "image": "",
+      "verification_url": "https://udemy.com"
+    }
+  },
+  {
+    "model": "main.service",
+    "pk": 1,
+    "fields": {
+      "title": "Python Automation",
+      "description": "Scripting background bots, cron schedules, document parsers, and system integrations to eliminate manual labor.",
+      "icon_class": "fa-brands fa-python",
+      "order": 1
+    }
+  },
+  {
+    "model": "main.service",
+    "pk": 2,
+    "fields": {
+      "title": "Backend Web Engineering",
+      "description": "Developing secure APIs, user groups management, and database models using the robust Django Framework.",
+      "icon_class": "fa-solid fa-server",
+      "order": 2
+    }
+  },
+  {
+    "model": "main.service",
+    "pk": 3,
+    "fields": {
+      "title": "Intelligent Web Scraping",
+      "description": "Mining large scale datasets from static or reactive websites using Selenium, Playwright, and BeautifulSoup with proper rotation.",
+      "icon_class": "fa-solid fa-magnifying-glass",
+      "order": 3
+    }
+  }
+]

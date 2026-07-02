@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="project-detail-section py-6 mt-5 position-relative">
+    <div class="glow-sphere sphere-1"></div>
+    <div class="container" data-aos="fade-up">
+        
+        <!-- Breadcrumb / Header Navigation -->
+        <div class="mb-4">
+            <a href="{% url 'home' %}#projects" class="link-cyan text-sm fw-semibold">
+                <i class="fa-solid fa-arrow-left me-2"></i>Back to Portfolio
+            </a>
+        </div>
+        
+        <div class="row gy-5">
+            <!-- Project Main Info / Details -->
+            <div class="col-lg-8">
+                <div class="project-detail-card p-4 p-md-5 rounded-4 bg-surface glow-hover">
+                    <!-- Project Image -->
+                    <div class="project-detail-img-container mb-4 rounded-3 overflow-hidden position-relative">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid w-100 project-detail-img">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Placeholder project" class="img-fluid w-100 project-detail-img">
+                        {% endif %}
+                    </div>
+                    
+                    <span class="project-category-tag text-cyan font-monospace text-sm mb-2 d-block">{{ project.category.name }}</span>
+                    <h1 class="project-detail-title text-white font-grotesk mb-4">{{ project.title }}</h1>
+                    
+                    <!-- Content body -->
+                    <div class="project-detail-body text-muted mb-4">
+                        {% if project.detail_description %}
+                            {{ project.detail_description|safe }}
+                        {% else %}
+                            <p class="lead text-white-50 mb-3">{{ project.description }}</p>
+                            <p>This project showcases a complete implementation of backend services and system design. Utilizing a modern software architecture, the system provides secure validation, scalable database structures, and dynamic UI animations for recruiter-friendly verification.</p>
+                            <p>Key highlights of the solution include:</p>
+                            <ul>
+                                <li>Optimized database operations via clean ORM schemas.</li>
+                                <li>Fully decoupled routing configuration following development best practices.</li>
+                                <li>A responsive layout tested across multiple mobile and desktop viewports.</li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Meta Panel / Sidebar -->
+            <div class="col-lg-4">
+                <div class="project-sidebar-panel p-4 rounded-4 bg-surface glow-hover position-sticky" style="top: 100px;">
+                    <h3 class="sidebar-title text-white font-grotesk mb-4"><i class="fa-solid fa-circle-info text-cyan me-2"></i>Specifications</h3>
+                    
+                    <div class="sidebar-info-group d-flex flex-column gap-3 mb-4">
+                        <div class="sidebar-info-item pb-3 border-bottom border-dark">
+                            <span class="info-label text-muted text-sm d-block">Category</span>
+                            <span class="info-val text-white fw-semibold">{{ project.category.name }}</span>
+                        </div>
+                        <div class="sidebar-info-item pb-3 border-bottom border-dark">
+                            <span class="info-label text-muted text-sm d-block">Release Date</span>
+                            <span class="info-val text-white fw-semibold">{{ project.created_at|date:"F Y" }}</span>
+                        </div>
+                        <div class="sidebar-info-item pb-3 border-bottom border-dark">
+                            <span class="info-label text-muted text-sm d-block">Technologies</span>
+                            <div class="d-flex flex-wrap gap-2 mt-1">
+                                {% for tech in project.tech_stack_list %}
+                                <span class="badge badge-tech-item">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-actions d-flex flex-column gap-3">
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" class="btn btn-primary-cyan w-100 py-3" target="_blank">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Visit Live Site
+                        </a>
+                        {% endif %}
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" class="btn btn-outline-white w-100 py-3" target="_blank">
+                            <i class="fa-brands fa-github me-2"></i>View GitHub Source
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Projects Section -->
+        {% if related_projects %}
+        <div class="related-projects-section mt-6">
+            <h3 class="related-title text-white font-grotesk mb-4"><i class="fa-solid fa-tags text-cyan me-2"></i>Related Work</h3>
+            <div class="row g-4">
+                {% for related in related_projects %}
+                <div class="col-md-4">
+                    <div class="project-card h-100 rounded-4 overflow-hidden glow-hover position-relative d-flex flex-column">
+                        <div class="project-img-container position-relative">
+                            {% if related.image %}
+                            <img src="{{ related.image.url }}" alt="{{ related.title }}" class="project-img img-fluid">
+                            {% else %}
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop" alt="Placeholder project" class="project-img img-fluid">
+                            {% endif %}
+                            <div class="project-overlay d-flex align-items-center justify-content-center gap-2">
+                                <a href="{% url 'project_detail' related.slug %}" class="overlay-action-btn glow-hover" title="View Details"><i class="fa-solid fa-circle-info"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-body p-4 d-flex flex-column flex-grow-1">
+                            <span class="project-category-tag text-cyan font-monospace text-sm mb-1 d-block">{{ related.category.name }}</span>
+                            <h4 class="project-card-title text-white font-grotesk mb-2">{{ related.title }}</h4>
+                            <p class="project-desc text-muted text-sm mb-3">{{ related.description|truncatewords:15 }}</p>
+                            <a href="{% url 'project_detail' related.slug %}" class="link-cyan text-sm fw-semibold mt-auto">
+                                Read Case Study <i class="fa-solid fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>
+</section>
+{% endblock %}

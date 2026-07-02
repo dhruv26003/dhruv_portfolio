@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="error-section d-flex align-items-center justify-content-center position-relative overflow-hidden py-6 mt-5" style="min-height: 80vh;">
+    <!-- Glow spheres -->
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    
+    <div class="container text-center error-content" data-aos="zoom-in" data-aos-duration="800">
+        <!-- Glowing Error Code -->
+        <h1 class="error-code font-grotesk glow-text-cyan mb-2" style="font-size: 10rem; font-weight: 800; tracking-spacing: -5px;">404</h1>
+        
+        <!-- Status Text -->
+        <h2 class="error-subtitle text-white font-grotesk mb-4" style="letter-spacing: 2px;">PAGE NOT FOUND</h2>
+        
+        <p class="error-lead text-muted mx-auto mb-5" style="max-width: 500px;">
+            The requested module could not be loaded. Either the URL path does not exist, or the resource has been purged from our main database.
+        </p>
+        
+        <div class="error-actions">
+            <a href="{% url 'home' %}" class="btn btn-primary-cyan px-5 py-3">
+                <i class="fa-solid fa-house me-2"></i>Return to Safe Zone
+            </a>
+        </div>
+    </div>
+    
+    <!-- Floating background grid icon elements -->
+    <div class="floating-shape shape-1" style="top: 15%; left: 10%;"><i class="fa-solid fa-triangle-exclamation text-cyan opacity-25"></i></div>
+    <div class="floating-shape shape-2" style="bottom: 20%; right: 12%;"><i class="fa-solid fa-bug text-cyan opacity-25"></i></div>
+</section>
+{% endblock %}

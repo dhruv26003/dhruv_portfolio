@@ -1,0 +1,596 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ==================== HERO SECTION ==================== -->
+<section id="hero"
+    class="hero-section d-flex align-items-center justify-content-center position-relative overflow-hidden">
+    <!-- Glow backgrounds -->
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+
+    <div class="container text-center hero-content" data-aos="fade-up" data-aos-duration="1000">
+        <h4 class="hero-subtitle text-cyan mb-3">Hello, I'm</h4>
+        <h1 class="hero-title mb-3 font-grotesk">{{ profile.name|default:"Dhruv Chavda" }}</h1>
+        <h2 class="hero-tagline mb-4">
+            <span class="text-white">Professional</span>
+            <span id="typed" class="text-cyan font-monospace"></span>
+        </h2>
+        <p class="hero-lead text-muted mx-auto mb-5 max-w-600">
+            {{ profile.bio|default:"I design and build robust backend engines, AI-powered systems, and intelligent automated scrapers to scale business processes." }}
+        </p>
+
+        <div class="hero-cta-buttons d-flex flex-wrap justify-content-center gap-3">
+            <a href="#projects" class="btn btn-primary-cyan px-4 py-3">
+                <i class="fa-solid fa-code me-2"></i>View Projects
+            </a>
+            <a href="#contact" class="btn btn-outline-white px-4 py-3">
+                <i class="fa-regular fa-envelope me-2"></i>Hire Me
+            </a>
+            {% if active_resume %}
+            <a href="{{ active_resume.file.url }}" class="btn btn-glass-download px-4 py-3" download>
+                <i class="fa-solid fa-file-pdf me-2"></i>Download CV
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Animated floating background shapes -->
+    <div class="floating-shape shape-1"><i class="fa-brands fa-python"></i></div>
+    <div class="floating-shape shape-2"><i class="fa-solid fa-cogs"></i></div>
+    <div class="floating-shape shape-3"><i class="fa-solid fa-database"></i></div>
+    <div class="floating-shape shape-4"><i class="fa-solid fa-network-wired"></i></div>
+
+    <a href="#about" class="scroll-down-indicator" aria-label="Scroll Down">
+        <i class="fa-solid fa-chevron-down animate-bounce"></i>
+    </a>
+</section>
+
+<!-- ==================== ABOUT SECTION ==================== -->
+<section id="about" class="about-section py-6 position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">01. PROFILE</span>
+            <h2 class="section-title font-grotesk mt-2">About Me</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="row align-items-center gy-5">
+            <!-- Profile Photo Container -->
+            <div class="col-lg-5 text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="about-img-wrapper position-relative mx-auto">
+                    {% if profile.about_photo %}
+                    <img src="{{ profile.about_photo.url }}" alt="{{ profile.name }}"
+                        class="img-fluid about-img rounded-4">
+                    {% elif profile.profile_photo %}
+                    <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}"
+                        class="img-fluid about-img rounded-4">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"
+                        alt="Placeholder developer" class="img-fluid about-img rounded-4">
+                    {% endif %}
+                    <div class="about-img-border"></div>
+                    <div class="about-img-glow"></div>
+                </div>
+            </div>
+
+            <!-- Bio details -->
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="400">
+                <h3 class="about-greet mb-3 font-grotesk text-white">Engineering Smarter Software Solutions</h3>
+                <div class="about-summary text-muted mb-4">
+                    {{ profile.summary|linebreaksbr|default:"I am an engineering professional focused on automating workflows, deploying backend architectures, and connecting applications with artificial intelligence." }}
+                </div>
+
+                <!-- Quick facts card -->
+                <div class="quick-facts-box p-4 rounded-4 mb-4">
+                    <h5 class="text-white mb-3 font-grotesk"><i
+                            class="fa-solid fa-circle-nodes text-cyan me-2"></i>Quick Facts</h5>
+                    <div class="row g-3">
+                        {% for fact in parsed_facts %}
+                        <div class="col-sm-6">
+                            <div class="fact-item d-flex align-items-center">
+                                <i class="fa-solid fa-angle-right text-cyan me-2"></i>
+                                <div>
+                                    {% if fact.key %}
+                                    <span class="fact-key text-white fw-semibold">{{ fact.key }}:</span>
+                                    {% endif %}
+                                    <span class="fact-val text-muted">{{ fact.value }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-sm-6">
+                            <div class="fact-item d-flex align-items-center">
+                                <i class="fa-solid fa-angle-right text-cyan me-2"></i>
+                                <span class="fact-key text-white fw-semibold">Location:</span>
+                                <span class="fact-val text-muted ms-1">{{ profile.location|default:"Gujarat, India" }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="fact-item d-flex align-items-center">
+                                <i class="fa-solid fa-angle-right text-cyan me-2"></i>
+                                <span class="fact-key text-white fw-semibold">Email:</span>
+                                <span class="fact-val text-muted ms-1">{{ profile.email|default:"contact@dhruv.com" }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="fact-item d-flex align-items-center">
+                                <i class="fa-solid fa-angle-right text-cyan me-2"></i>
+                                <span class="fact-key text-white fw-semibold">Focus:</span>
+                                <span class="fact-val text-muted ms-1">Python, Django, AI</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-muted fw-semibold">Connect:</span>
+                    <div class="social-links-about d-flex gap-2">
+                        {% for link in social_links %}
+                        <a href="{{ link.url }}" class="social-about-btn glow-hover" target="_blank"
+                            title="{{ link.platform_name }}">
+                            <i class="{{ link.icon_class }}"></i>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SKILLS SECTION ==================== -->
+<section id="skills" class="skills-section py-6 bg-surface position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">02. CAPABILITIES</span>
+            <h2 class="section-title font-grotesk mt-2">Technical Skills</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <!-- Search and Categorization controls -->
+        <div class="skills-controls row justify-content-center mb-5 gy-3" data-aos="fade-up">
+            <div class="col-md-5">
+                <div class="search-input-group position-relative">
+                    <i class="fa-solid fa-magnifying-glass search-icon text-muted"></i>
+                    <input type="text" id="skillSearch" class="form-control skill-search-bar"
+                        placeholder="Search specific skills (e.g. Python, SQL)...">
+                </div>
+            </div>
+            <div class="col-md-7 d-flex justify-content-md-end align-items-center gap-2 flex-wrap">
+                <button class="btn btn-outline-cyan btn-sm active skill-filter-btn" data-category="all">All
+                    Tech</button>
+                {% for category in categories %}
+                <button class="btn btn-outline-cyan btn-sm skill-filter-btn" data-category="{{ category.slug }}">{{ category.name }}</button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Skills list grid -->
+        <div class="row g-4" id="skillsGrid" data-aos="fade-up" data-aos-delay="200">
+            {% for skill in skills %}
+            <div class="col-md-4 col-sm-6 skill-card-wrapper" data-skill-name="{{ skill.name|lower }}"
+                data-skill-category="{{ skill.category.slug }}">
+                <div class="skill-card p-4 rounded-4 glow-hover d-flex align-items-center">
+                    <div class="skill-icon-container text-cyan me-3">
+                        {% if skill.icon_class %}
+                        <i class="{{ skill.icon_class }} fa-2x"></i>
+                        {% else %}
+                        <i class="fa-solid fa-terminal fa-2x"></i>
+                        {% endif %}
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="skill-name text-white fw-bold">{{ skill.name }}</span>
+                            <span class="skill-percentage font-monospace text-cyan text-sm">{{ skill.proficiency }}%</span>
+                        </div>
+                        <div class="progress skill-progress-container bg-dark" style="height: 6px;">
+                            <div class="progress-bar skill-progress-bar-cyan" role="progressbar"
+                                style="width: {{ skill.proficiency }}%" aria-valuenow="{{ skill.proficiency }}"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                <p>No skills recorded yet. Check back later or add them in the admin dashboard.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ==================== EXPERIENCE & EDUCATION ==================== -->
+<section id="experience" class="timeline-section py-6 position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">03. HISTORY</span>
+            <h2 class="section-title font-grotesk mt-2">Experience & Education</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="row gy-5">
+            <!-- Experience Timeline -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3 class="timeline-group-title text-white font-grotesk mb-4">
+                    <i class="fa-solid fa-briefcase text-cyan me-2"></i>Professional Experience
+                </h3>
+                <div class="timeline">
+                    {% for exp in experiences %}
+                    <div class="timeline-item position-relative ps-4 pb-4">
+                        <div class="timeline-connector"></div>
+                        <div class="timeline-card p-4 rounded-4 glow-hover">
+                            <span class="timeline-date text-cyan font-monospace text-sm d-block mb-1">
+                                {{ exp.start_date|date:"M Y" }} - {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                            </span>
+                            <h4 class="timeline-title text-white font-grotesk">{{ exp.position }}</h4>
+                            <h5 class="timeline-subtitle text-muted mb-3">{{ exp.company }}</h5>
+
+                            <ul class="timeline-duties text-muted text-sm ps-3 mb-3">
+                                {% for duty in exp.responsibilities_list %}
+                                <li class="mb-2">{{ duty }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            {% if exp.skills_used.all %}
+                            <div class="timeline-tags d-flex flex-wrap gap-2 mt-2">
+                                {% for skill in exp.skills_used.all %}
+                                <span class="badge badge-skill-tag">{{ skill.name }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-muted ps-4">No experience logged.</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Education Timeline -->
+            <div class="col-lg-6" data-aos="fade-left">
+                <h3 class="timeline-group-title text-white font-grotesk mb-4">
+                    <i class="fa-solid fa-graduation-cap text-cyan me-2"></i>Education History
+                </h3>
+                <div class="timeline">
+                    {% for edu in education_history %}
+                    <div class="timeline-item position-relative ps-4 pb-4">
+                        <div class="timeline-connector"></div>
+                        <div class="timeline-card p-4 rounded-4 glow-hover">
+                            <span class="timeline-date text-cyan font-monospace text-sm d-block mb-1">
+                                {{ edu.start_date|date:"M Y" }} - {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:"M Y" }}{% endif %}
+                            </span>
+                            <h4 class="timeline-title text-white font-grotesk">{{ edu.degree }}</h4>
+                            <h5 class="timeline-subtitle text-muted mb-2">{{ edu.institution }}</h5>
+                            {% if edu.field_of_study %}
+                            <p class="text-sm text-cyan mb-2">{{ edu.field_of_study }}</p>
+                            {% endif %}
+                            {% if edu.description %}
+                            <p class="timeline-duties text-muted text-sm mb-0">{{ edu.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-muted ps-4">No education details logged.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROJECTS SECTION ==================== -->
+<section id="projects" class="projects-section py-6 bg-surface position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">04. PORTFOLIO</span>
+            <h2 class="section-title font-grotesk mt-2">Projects & Code</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <!-- Search & Filter panel -->
+        <div class="projects-controls row justify-content-center mb-5 gy-3" data-aos="fade-up">
+            <div class="col-md-5">
+                <div class="search-input-group position-relative">
+                    <i class="fa-solid fa-magnifying-glass search-icon text-muted"></i>
+                    <input type="text" id="projectSearch" class="form-control project-search-bar"
+                        placeholder="Search projects by name/stack...">
+                </div>
+            </div>
+            <div class="col-md-7 d-flex justify-content-md-end align-items-center gap-2 flex-wrap">
+                <button class="btn btn-outline-cyan btn-sm active project-filter-btn" data-category="all">All
+                    Projects</button>
+                {% for category in categories %}
+                <button class="btn btn-outline-cyan btn-sm project-filter-btn" data-category="{{ category.slug }}">{{ category.name }}</button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="row g-4" id="projectsGrid" data-aos="fade-up" data-aos-delay="200">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 project-card-wrapper" data-project-name="{{ project.title|lower }}"
+                data-project-stack="{{ project.tech_stack|lower }}" data-project-category="{{ project.category.slug }}">
+                <div
+                    class="project-card h-100 rounded-4 overflow-hidden glow-hover position-relative d-flex flex-column">
+                    <!-- Project Image -->
+                    <div class="project-img-container position-relative">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-img img-fluid">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"
+                            alt="Placeholder project" class="project-img img-fluid">
+                        {% endif %}
+                        <div class="project-overlay d-flex align-items-center justify-content-center gap-3">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="overlay-action-btn glow-hover" target="_blank"
+                                title="GitHub Source"><i class="fa-brands fa-github"></i></a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" class="overlay-action-btn glow-hover" target="_blank"
+                                title="Live Preview"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            {% endif %}
+                            <a href="{% url 'project_detail' project.slug %}" class="overlay-action-btn glow-hover"
+                                title="View Details"><i class="fa-solid fa-circle-info"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Details body -->
+                    <div class="project-body p-4 d-flex flex-column flex-grow-1">
+                        <span class="project-category-tag text-cyan font-monospace text-sm mb-1 d-block">{{ project.category.name }}</span>
+                        <h4 class="project-card-title text-white font-grotesk mb-2">{{ project.title }}</h4>
+                        <p class="project-desc text-muted text-sm flex-grow-1">{{ project.description }}</p>
+
+                        <!-- Tech badges -->
+                        <div class="project-tech-badges d-flex flex-wrap gap-2 mb-3">
+                            {% for tech in project.tech_stack_list %}
+                            <span class="badge badge-tech-item">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <div
+                            class="project-card-footer d-flex align-items-center justify-content-between mt-auto pt-3 border-top border-dark">
+                            <a href="{% url 'project_detail' project.slug %}" class="link-cyan text-sm fw-semibold">
+                                View Case Study <i class="fa-solid fa-arrow-right ms-1"></i>
+                            </a>
+                            <div class="project-links d-flex gap-2">
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" class="project-link-icon" target="_blank"
+                                    title="GitHub Code"><i class="fa-brands fa-github"></i></a>
+                                {% endif %}
+                                {% if project.live_url %}
+                                <a href="{{ project.live_url }}" class="project-link-icon" target="_blank"
+                                    title="Live Site"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                <p>No projects documented yet. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CERTIFICATES SECTION ==================== -->
+<section id="certificates" class="certificates-section py-6 position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">05. CREDENTIALS</span>
+            <h2 class="section-title font-grotesk mt-2">Certifications</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="row g-4" data-aos="fade-up" data-aos-delay="200">
+            {% for cert in certificates %}
+            <div class="col-md-4 col-sm-6">
+                <div class="certificate-card h-100 rounded-4 overflow-hidden glow-hover d-flex flex-column">
+                    <div class="cert-img-container overflow-hidden position-relative">
+                        {% if cert.image %}
+                        <img src="{{ cert.image.url }}" alt="{{ cert.title }}" class="cert-img img-fluid">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=600&auto=format&fit=crop"
+                            alt="Certificate placeholder" class="cert-img img-fluid">
+                        {% endif %}
+                        {% if cert.verification_url %}
+                        <a href="{{ cert.verification_url }}" class="cert-verify-overlay" target="_blank">
+                            <span class="verify-badge"><i class="fa-solid fa-shield-halved me-1"></i> Verify
+                                Credentials</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="cert-body p-4 d-flex flex-column flex-grow-1">
+                        <span class="cert-date font-monospace text-cyan text-sm mb-1 d-block">{{ cert.date_issued|date:"M Y" }}</span>
+                        <h4 class="cert-title text-white font-grotesk mb-2">{{ cert.title }}</h4>
+                        <p class="cert-issuer text-muted text-sm mt-auto mb-0"><i
+                                class="fa-regular fa-building me-1"></i> Issued by: {{ cert.issuer }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                <p>No credentials loaded yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SERVICES SECTION ==================== -->
+<section id="services" class="services-section py-6 bg-surface position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">06. SERVICES</span>
+            <h2 class="section-title font-grotesk mt-2">What I Offer</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="row g-4" data-aos="fade-up" data-aos-delay="200">
+            {% for service in services %}
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card p-5 rounded-4 glow-hover h-100 d-flex flex-column position-relative">
+                    <div class="service-icon-box text-cyan mb-4 d-inline-block">
+                        {% if service.icon_class %}
+                        <i class="{{ service.icon_class }} fa-3x"></i>
+                        {% else %}
+                        <i class="fa-solid fa-screwdriver-wrench fa-3x"></i>
+                        {% endif %}
+                    </div>
+                    <h4 class="service-title text-white font-grotesk mb-3">{{ service.title }}</h4>
+                    <p class="service-desc text-muted text-sm mb-0">{{ service.description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Standard dynamic fallback items matching requirements if DB empty -->
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card p-5 rounded-4 glow-hover h-100 d-flex flex-column position-relative">
+                    <div class="service-icon-box text-cyan mb-4 d-inline-block"><i
+                            class="fa-brands fa-python fa-3x"></i></div>
+                    <h4 class="service-title text-white font-grotesk mb-3">Python Automation</h4>
+                    <p class="service-desc text-muted text-sm">Automating complex workflows, scripts, browser testing,
+                        and schedules to reduce human overhead.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card p-5 rounded-4 glow-hover h-100 d-flex flex-column position-relative">
+                    <div class="service-icon-box text-cyan mb-4 d-inline-block"><i class="fa-solid fa-server fa-3x"></i>
+                    </div>
+                    <h4 class="service-title text-white font-grotesk mb-3">Backend Development</h4>
+                    <p class="service-desc text-muted text-sm">Designing database schemas, routing, background jobs, and
+                        robust servers using Django ORM.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card p-5 rounded-4 glow-hover h-100 d-flex flex-column position-relative">
+                    <div class="service-icon-box text-cyan mb-4 d-inline-block"><i class="fa-solid fa-code fa-3x"></i>
+                    </div>
+                    <h4 class="service-title text-white font-grotesk mb-3">REST API Design</h4>
+                    <p class="service-desc text-muted text-sm">Building fast, documented, and secure APIs for mobile and
+                        web frontends with comprehensive validation.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<section id="contact" class="contact-section py-6 position-relative">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <span class="section-tag text-cyan">07. INQUIRIES</span>
+            <h2 class="section-title font-grotesk mt-2">Get In Touch</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="row g-5">
+            <!-- Contact info columns -->
+            <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
+                <h3 class="contact-title text-white font-grotesk mb-4">Let's build something amazing together</h3>
+                <p class="contact-desc text-muted mb-4">
+                    Have an idea, project, automation requirement, or just want to connect? Send me a message, and I'll
+                    respond within 24 hours.
+                </p>
+
+                <div class="contact-info-list d-flex flex-column gap-3 mb-4">
+                    <div class="info-item d-flex align-items-center p-3 rounded-3">
+                        <div class="info-icon text-cyan me-3"><i class="fa-regular fa-envelope fa-lg"></i></div>
+                        <div>
+                            <span class="info-label text-muted text-sm d-block">Email</span>
+                            <a href="mailto:{{ profile.email|default:'contact@dhruv.com' }}"
+                                class="info-val text-white">{{ profile.email|default:"contact@dhruv.com" }}</a>
+                        </div>
+                    </div>
+                    {% if profile.phone %}
+                    <div class="info-item d-flex align-items-center p-3 rounded-3">
+                        <div class="info-icon text-cyan me-3"><i class="fa-solid fa-phone fa-lg"></i></div>
+                        <div>
+                            <span class="info-label text-muted text-sm d-block">Phone</span>
+                            <a href="tel:{{ profile.phone }}" class="info-val text-white">{{ profile.phone }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="info-item d-flex align-items-center p-3 rounded-3">
+                        <div class="info-icon text-cyan me-3"><i class="fa-solid fa-location-dot fa-lg"></i></div>
+                        <div>
+                            <span class="info-label text-muted text-sm d-block">Location</span>
+                            <span class="info-val text-white">{{ profile.location|default:"Gujarat, India" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% if profile.github_username %}
+                <!-- Dynamic GitHub card -->
+                <div class="github-stats-card p-4 rounded-4 glow-hover text-center">
+                    <h5 class="text-white mb-2 font-grotesk"><i class="fa-brands fa-github text-cyan me-1"></i> GitHub
+                        Tracker</h5>
+                    <p class="text-muted text-xs mb-3">Monitoring open-source updates</p>
+                    <a href="https://github.com/{{ profile.github_username }}" class="btn btn-outline-cyan btn-sm px-3"
+                        target="_blank">
+                        @{{ profile.github_username }} <i
+                            class="fa-solid fa-arrow-up-right-from-square text-xs ms-1"></i>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Contact form column -->
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="400">
+                <div class="contact-form-card p-5 rounded-4">
+
+                    <!-- Alert Messages container for Form Submission -->
+                    <div id="contactAlert" class="alert d-none mb-4" role="alert"></div>
+
+                    <form id="contactForm" method="POST" action="{% url 'home' %}#contact">
+
+                        {% csrf_token %}
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ contact_form.name.id_for_label }}"
+                                    class="form-label text-white text-sm">Full Name</label>
+                                {{ contact_form.name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ contact_form.email.id_for_label }}"
+                                    class="form-label text-white text-sm">Email Address</label>
+                                {{ contact_form.email }}
+                            </div>
+                            <div class="col-md-12">
+                                <label for="{{ contact_form.phone.id_for_label }}"
+                                    class="form-label text-white text-sm">Phone Number <span
+                                        class="text-muted">(Optional)</span></label>
+                                {{ contact_form.phone }}
+                            </div>
+                            <div class="col-md-12">
+                                <label for="{{ contact_form.subject.id_for_label }}"
+                                    class="form-label text-white text-sm">Subject</label>
+                                {{ contact_form.subject }}
+                            </div>
+                            <div class="col-md-12">
+                                <label for="{{ contact_form.message.id_for_label }}"
+                                    class="form-label text-white text-sm">Message</label>
+                                {{ contact_form.message }}
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" id="submitContactBtn" class="btn btn-primary-cyan w-100 py-3">
+                                    <span class="btn-text"><i class="fa-regular fa-paper-plane me-2"></i>Send
+                                        Message</span>
+                                    <span class="spinner-border spinner-border-sm btn-loader d-none" role="status"
+                                        aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
